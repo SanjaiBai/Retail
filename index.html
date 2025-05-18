@@ -1,53 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Amazon Clone</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simple Amazon Clone</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <!-- Header -->
-  <header class="header">
-    <div class="logo">MyShop</div>
-    <input type="text" placeholder="Search for products..." class="search-box">
-    <div class="cart">🛒 Cart</div>
+  <header>
+    <h1>MyShop</h1>
+    <nav class="nav">
+      <a href="#" onclick="showSection('home')">Home</a>
+      <a href="#" onclick="showSection('fashion')">Fashion</a>
+      <a href="#" onclick="showSection('grocery')">Grocery</a>
+    </nav>
   </header>
 
-  <!-- Navigation -->
-  <nav class="nav">
-    <a href="#">Home</a>
-    <a href="#">Deals</a>
-    <a href="#">Electronics</a>
-    <a href="#">Fashion</a>
-    <a href="#">Grocery</a>
-    <a href="#">Customer Service</a>
-  </nav>
+  <main>
+    <!-- Home Section -->
+    <section id="home" class="section">
+      <h2>Welcome to MyShop!</h2>
+      <p>Select a category to start shopping.</p>
+    </section>
 
-  <!-- Main Content -->
-  <main class="main">
-    <h2>Recommended Products</h2>
-    <div class="product-grid">
-      <div class="product-card">
-        <img src="https://images.app.goo.gl/pFQPq5XQCSHzmgTu9" alt="Product 1">
-        <h3>Product 1</h3>
-        <p>$29.99</p>
-        <button>Add to Cart</button>
+    <!-- Fashion Section -->
+    <section id="fashion" class="section">
+      <h2>Fashion</h2>
+      <div class="product-grid">
+        <div class="product-card">
+          <img src="https://via.placeholder.com/200x150?text=T-Shirt" alt="T-Shirt">
+          <h3>Men's T-Shirt</h3>
+          <p>$14.99</p>
+          <button>Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <img src="https://via.placeholder.com/200x150?text=Jeans" alt="Jeans">
+          <h3>Blue Jeans</h3>
+          <p>$39.99</p>
+          <button>Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <img src="https://via.placeholder.com/200x150?text=Jacket" alt="Jacket">
+          <h3>Winter Jacket</h3>
+          <p>$89.99</p>
+          <button>Add to Cart</button>
+        </div>
       </div>
-      <div class="product-card">
-        <img src="https://images.app.goo.gl/ukNu2deswCS1r1DK6" alt="Product 2">
-        <h3>Product 2</h3>
-        <p>$49.99</p>
-        <button>Add to Cart</button>
+    </section>
+
+    <!-- Grocery Section -->
+    <section id="grocery" class="section">
+      <h2>Grocery</h2>
+      <div class="product-grid">
+        <div class="product-card">
+          <img src="https://via.placeholder.com/200x150?text=Milk" alt="Milk">
+          <h3>Fresh Milk (1L)</h3>
+          <p>$2.50</p>
+          <p>Quantity: 1</p>
+          <button>Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <img src="https://via.placeholder.com/200x150?text=Apples" alt="Apples">
+          <h3>Red Apples (1kg)</h3>
+          <p>$3.00</p>
+          <p>Quantity: 1</p>
+          <button>Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <img src="https://via.placeholder.com/200x150?text=Bananas" alt="Bananas">
+          <h3>Bananas (1kg)</h3>
+          <p>$2.20</p>
+          <p>Quantity: 1</p>
+          <button>Add to Cart</button>
+        </div>
       </div>
-      <div class="product-card">
-        <img src="https://unsplash.com/photos/a-brown-leather-purse-with-a-long-strap-BXWGZgFhBuU" alt="Product 3">
-        <h3>Product 3</h3>
-        <p>$19.99</p>
-        <button>Add to Cart</button>
-      </div>
-    </div>
+    </section>
   </main>
 
+  <footer>
+    <p>&copy; 2025 MyShop</p>
+  </footer>
+
+  <!-- JavaScript for Tab Switching -->
+  <script>
+    function showSection(sectionId) {
+      const sections = document.querySelectorAll('.section');
+      sections.forEach(section => {
+        section.style.display = 'none';
+      });
+      document.getElementById(sectionId).style.display = 'block';
+    }
+
+    // Show Home by default
+    document.addEventListener('DOMContentLoaded', () => {
+      showSection('home');
+    });
+  </script>
 </body>
 </html>
