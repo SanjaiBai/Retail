@@ -6,28 +6,73 @@
   <title>Trend & Taste</title>
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-BCY6BXWY62"></script>
   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-K5C8K5TP');</script>
-<!-- End Google Tag Manager -->
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-K5C8K5TP');</script>
+  <!-- End Google Tag Manager -->
 
-  gtag('config', 'G-BCY6BXWY62');
-</script>
+  <!-- Tab-tracking & virtual page-view logic -->
+  <script>
+    /* ---------- global dataLayer ---------- */
+    window.dataLayer = window.dataLayer || [];
+
+    /* ---------- state ---------- */
+    let currentTab = 'home';
+    let tabStart   = Date.now();
+
+    function pushTabView(tab, seconds) {
+      dataLayer.push({
+        event:        'tab_view',
+        tab_name:     tab,
+        duration_sec: seconds
+      });
+    }
+
+    function pushVirtualPV(tab) {
+      dataLayer.push({
+        event:       'virtual_page_view',
+        page_title:  tab.charAt(0).toUpperCase() + tab.slice(1),
+        page_path:   '/' + tab
+      });
+    }
+
+    /* ---------- navigation handler ---------- */
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
+
+      /* fire analytics only if the visitor changed tabs */
+      if (id !== currentTab) {
+        const secs = Math.round((Date.now() - tabStart) / 1000);
+        pushTabView(currentTab, secs);  // time on the old tab
+        pushVirtualPV(id);              // page_view for the new tab
+        currentTab = id;
+        tabStart   = Date.now();
+      }
+    }
+
+    /* ---------- first view ---------- */
+    window.addEventListener('DOMContentLoaded', () => {
+      pushVirtualPV('home');   // first page_view
+      showSection('home');     // show Home by default
+    });
+
+    /* ---------- final flush ---------- */
+    window.addEventListener('beforeunload', () => {
+      const secs = Math.round((Date.now() - tabStart) / 1000);
+      pushTabView(currentTab, secs);
+    });
+  </script>
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K5C8K5TP"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K5C8K5TP"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
   <header>
     <h1>Trend & Taste</h1>
     <nav class="nav">
@@ -40,79 +85,58 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <main>
     <!-- Home Section -->
     <section id="home" class="section">
-  <img src="https://theithacan.org/wp-content/uploads/2021/03/Tom-and-Jerry-Feature.jpg" 
-       alt="Homepage Banner" 
-       style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 12px; margin-bottom: 20px;">
-  <h2>Welcome to Our Store</h2>
-  <p>Explore amazing Fashion and Grocery products with great prices!</p>
-</section>
-
+      <img src="https://theithacan.org/wp-content/uploads/2021/03/Tom-and-Jerry-Feature.jpg" 
+           alt="Homepage Banner" 
+           style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 12px; margin-bottom: 20px;">
+      <h2>Welcome to Our Store</h2>
+      <p>Explore amazing Fashion and Grocery products with great prices!</p>
+    </section>
 
     <!-- Fashion Section -->
     <section id="fashion" class="section">
-  <h2>Fashion</h2>
-  <div class="product-grid">
-    <div class="product-card">
-      <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=200&q=80" alt="T-Shirt">
-      <h3>Men's T-Shirt</h3>
-      <p>$14.99</p>
-      <button>Add to Cart</button>
-    </div>
-    <div class="product-card">
-      <img src="https://qph.cf2.quoracdn.net/main-qimg-393cf814ac96cdc22e29ba515204acab-pjlq" alt="Jeans">
-      <h3>Blue Jeans</h3>
-      <p>$39.99</p>
-      <button>Add to Cart</button>
-    </div>
-    <div class="product-card">
-      <img src="https://assets.ajio.com/medias/sys_master/root/20230907/xCK2/64f9c3ceafa4cf41f5cf4e09/-473Wx593H-443011942-pink-MODEL.jpg" alt="Jacket">
-      <h3>Winter Jacket</h3>
-      <p>$89.99</p>
-      <button>Add to Cart</button>
-    </div>
-  </div>
-</section>
-
+      <h2>Fashion</h2>
+      <div class="product-grid">
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=200&q=80" alt="T-Shirt">
+          <h3>Men's T-Shirt</h3>
+          <p>$14.99</p>
+          <button>Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <img src="https://qph.cf2.quoracdn.net/main-qimg-393cf814ac96cdc22e29ba515204acab-pjlq" alt="Jeans">
+          <h3>Blue Jeans</h3>
+          <p>$39.99</p>
+          <button>Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <img src="https://assets.ajio.com/medias/sys_master/root/20230907/xCK2/64f9c3ceafa4cf41f5cf4e09/-473Wx593H-443011942-pink-MODEL.jpg" alt="Jacket">
+          <h3>Winter Jacket</h3>
+          <p>$89.99</p>
+          <button>Add to Cart</button>
+        </div>
+      </div>
+    </section>
 
     <!-- Grocery Section -->
-    <section id="grocery" class="section" style="display: none;">
-  <h2>Grocery</h2>
-  <div class="product-grid">
-    <div class="product-card">
-      <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=200&q=80" alt="Milk">
-      <h3>Fresh Milk (1L)</h3>
-      <p>$2.49</p>
-      <button>Add to Cart</button>
-    </div>
-    <div class="product-card">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeAZ3OTKtIJWSwjbNwSXlUC8HWRalgztZ1dw&s" alt="Fruits">
-      <h3>Mixed Fruits Pack (1kg)</h3>
-      <p>$4.99</p>
-      <button>Add to Cart</button>
-    </div>
-  </div>
-</section>
-
+    <section id="grocery" class="section" style="display:none">
+      <h2>Grocery</h2>
+      <div class="product-grid">
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=200&q=80" alt="Milk">
+          <h3>Fresh Milk (1L)</h3>
+          <p>$2.49</p>
+          <button>Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeAZ3OTKtIJWSwjbNwSXlUC8HWRalgztZ1dw&s" alt="Fruits">
+          <h3>Mixed Fruits Pack (1kg)</h3>
+          <p>$4.99</p>
+          <button>Add to Cart</button>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <footer>
-    <p>&copy; 2025 MyShop</p>
-  </footer>
-
-  <!-- JavaScript for Tab Switching -->
-  <script>
-    function showSection(sectionId) {
-      const sections = document.querySelectorAll('.section');
-      sections.forEach(section => {
-        section.style.display = 'none';
-      });
-      document.getElementById(sectionId).style.display = 'block';
-    }
-
-    // Show Home by default
-    document.addEventListener('DOMContentLoaded', () => {
-      showSection('home');
-    });
-  </script>
+  <footer><p>&copy; 2025 MyShop</p></footer>
 </body>
 </html>
