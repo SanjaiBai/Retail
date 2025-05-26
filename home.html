@@ -5,27 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Home - Trend & Taste</title>
   <link rel="stylesheet" href="style.css" />
-   <style>
-    .logout-btn {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      background-color: #ff4d4d;
-      color: white;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .logout-btn:hover {
-      background-color: #cc0000;
-    }
-  </style>
 </head>
 <body>
-  <button onclick="logout()" class="logout-btn">Logout</button>
   <header>
+    <button onclick="logout()" class="logout-btn">Logout</button>
     <h1>Trend & Taste</h1>
     <nav class="nav">
       <a href="home.html">Home</a>
@@ -47,12 +30,14 @@
   <footer><p>&copy; 2025 MyShop</p></footer>
 
   <script>
-    function logout() {
-      localStorage.removeItem("isLoggedIn");
+    // Redirect to login if not logged in
+    if (localStorage.getItem("isLoggedIn") !== "true") {
       window.location.href = "index.html";
     }
 
-    if (localStorage.getItem("isLoggedIn") !== "true") {
+    // Logout function
+    function logout() {
+      localStorage.removeItem("isLoggedIn");
       window.location.href = "index.html";
     }
   </script>
