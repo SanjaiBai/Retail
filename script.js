@@ -9,3 +9,4 @@ function validateLogin(event) {
     document.getElementById("login-error").textContent = "Invalid username or password.";
   }
 }
+
