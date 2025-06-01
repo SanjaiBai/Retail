@@ -42,6 +42,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
     mixpanel.init("7c6a62d619ee7fe6703458c78c4a1204"); // Replace with your actual token
 </script>
+  <script>
+  mixpanel.track("Page View", {
+    page: window.location.pathname
+  });
+</script>
+  <button onclick="mixpanel.track('Clicked Contact Us Button')">Contact Us</button>
+
 
 </head>
 <body>
